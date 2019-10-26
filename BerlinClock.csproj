@@ -51,7 +51,6 @@
   <ItemGroup>
     <Compile Include="BDD\BerlinClockFeatureSteps.cs" />
     <Compile Include="Classes\BerlinClock.cs" />
-    <Compile Include="Classes\ClockLevel.cs" />
     <Compile Include="Classes\Time.cs" />
     <Compile Include="Classes\TimeFormatter.cs" />
     <Compile Include="Common\Colors.cs" />
