@@ -25,8 +25,10 @@ namespace BerlinClock.Classes
 
             StringBuilder builder = new StringBuilder();
             builder.AppendLine(GetTopColor(time.Seconds));
-            builder.AppendLine(GetHours(time.Hours));
-            builder.Append(GetMinutes(time.Minutes));
+            builder.AppendLine(GetHoursTop(time.Hours));
+            builder.AppendLine(GetHoursBottom(time.Hours));
+            builder.AppendLine(GetMinutesTop(time.Minutes));
+            builder.Append(GetMinutesBottom(time.Minutes));
 
             return builder.ToString();
         }
@@ -36,29 +38,27 @@ namespace BerlinClock.Classes
             return seconds % 2 == 0 ? Colors.Yellow : Colors.Off;
         }
 
-        private string GetHours(int hours)
-        { 
-            var top = GetLampStates(hours / 5, 4, Colors.Red);
-            var bottom = GetLampStates(hours % 5, 4, Colors.Red);
-
-            top.Add(Environment.NewLine);
-            top.AddRange(bottom);
-
-            return string.Join("", top);
-        }
-
-        private string GetMinutes(int minutes)
+        private string GetHoursTop(int hours)
         {
-            var top = GetLampStates(minutes / 5, 11, Colors.Yellow);
-            var bottom = GetLampStates(minutes % 5, 4, Colors.Yellow);
-
-            top.Add(Environment.NewLine);
-            var minutesTop = string.Join("", top).Replace("YYY", "YYR");
-
-            return minutesTop + string.Join("", bottom);
+           return string.Join("", GetLampStates(hours / 5, 4, Colors.Red));
         }
 
-        private List<string> GetLampStates(int activeLamps, int numberOfLamps, string color)
+        private string GetHoursBottom(int hours)
+        {
+            return string.Join("", GetLampStates(hours % 5, 4, Colors.Red));
+        }
+
+        private string GetMinutesTop(int minutes)
+        {
+            return string.Join("", GetLampStates(minutes / 5, 11, Colors.Yellow)).Replace("YYY", "YYR");
+        }
+
+        private string GetMinutesBottom(int minutes)
+        {
+            return string.Join("", GetLampStates(minutes % 5, 4, Colors.Yellow));
+        }
+        
+        private IList<string> GetLampStates(int activeLamps, int numberOfLamps, string color)
         {
             var lamps = new List<string>();
             for(int i = 1; i <= numberOfLamps; i++)
